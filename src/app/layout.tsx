@@ -17,7 +17,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} bg-white min-h-screen flex flex-col`}>
+      <body className={`${inter.className} bg-texture-paper min-h-screen flex flex-col`}>
         <header className="bg-white border-b border-desert-sand shadow-sm">
           <div className="container mx-auto px-4 py-4">
             <div className="flex justify-between items-center">
@@ -35,7 +35,7 @@ export default function RootLayout({
         <main className="container mx-auto px-4 py-8">
           {children}
         </main>
-        <footer className="bg-desert-sand mt-auto">
+      	 <footer className="bg-texture-sand mt-auto">
           <div className="container mx-auto px-4 py-6">
             <div className="flex justify-between items-center">
               <p className="text-desert-earth">&copy; {new Date().getFullYear()} John Paul Fallon</p>

@@ -1,16 +1,19 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import { getFeaturedProjects } from '@/data/projects'
 
 export default function Home() {
+  const featuredProjects = getFeaturedProjects();
+  
   return (
     <div className="space-y-12">
       {/* Hero Section */}
       <section className="flex flex-col md:flex-row items-center justify-between gap-8 py-12">
         <div className="md:w-1/2 space-y-6">
-          <h1 className="text-4xl md:text-5xl font-bold text-desert-earth">
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-800">
             Hi, I'm John Paul Fallon
           </h1>
-          <h2 className="text-2xl md:text-3xl text-desert-clay">
+          <h2 className="text-2xl md:text-3xl text-gray-600">
             Mechanical Engineer & Biomechanics Researcher
           </h2>
           <p className="text-lg text-gray-700">
@@ -36,61 +39,34 @@ export default function Home() {
 
       {/* Featured Projects Section */}
       <section className="py-12">
-        <h2 className="text-3xl font-bold mb-8 text-desert-earth">Featured Projects</h2>
+        <h2 className="text-3xl font-bold mb-8 text-gray-800">Featured Projects</h2>
         <div className="grid md:grid-cols-2 gap-8">
-          {/* Project Card 1 */}
-          <div className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow">
-            <div className="h-48 bg-desert-clay flex items-center justify-center text-white">
-              Project Image Placeholder
-            </div>
-            <div className="p-6">
-              <h3 className="text-xl font-semibold mb-2 text-desert-earth">Biomechanics Research</h3>
-              <p className="text-gray-600 mb-4">
-                Analysis of joint mechanics using MATLAB and motion capture data.
-              </p>
-              <div className="flex flex-wrap gap-2 mb-4">
-                <span className="bg-desert-sky/20 text-desert-sky px-3 py-1 rounded-full text-sm">
-                  MATLAB
-                </span>
-                <span className="bg-desert-sage/20 text-desert-sage px-3 py-1 rounded-full text-sm">
-                  Research
-                </span>
+          {featuredProjects.map((project) => (
+            <div key={project.id} className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow border border-gray-100">
+              <div className={`h-48 ${project.imageColor} flex items-center justify-center text-white`}>
+                Project Image Placeholder
               </div>
-              <Link 
-                href="/projects/biomechanics"
-                className="text-desert-clay hover:text-desert-earth font-medium"
-              >
-                Learn more →
-              </Link>
-            </div>
-          </div>
-          
-          {/* Project Card 2 */}
-          <div className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow">
-            <div className="h-48 bg-desert-sage flex items-center justify-center text-white">
-              Project Image Placeholder
-            </div>
-            <div className="p-6">
-              <h3 className="text-xl font-semibold mb-2 text-desert-earth">System Optimization</h3>
-              <p className="text-gray-600 mb-4">
-                Improved efficiency in mechanical systems through innovative design modifications.
-              </p>
-              <div className="flex flex-wrap gap-2 mb-4">
-                <span className="bg-desert-clay/20 text-desert-clay px-3 py-1 rounded-full text-sm">
-                  CAD Design
-                </span>
-                <span className="bg-desert-earth/20 text-desert-earth px-3 py-1 rounded-full text-sm">
-                  Optimization
-                </span>
+              <div className="p-6">
+                <h3 className="text-xl font-semibold mb-2 text-gray-800">{project.title}</h3>
+                <p className="text-gray-600 mb-4">
+                  {project.description}
+                </p>
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {project.technologies.slice(0, 2).map((tech, index) => (
+                    <span key={index} className="bg-desert-sky/20 text-desert-sky px-3 py-1 rounded-full text-sm">
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+                <Link 
+                  href={`/projects/${project.slug}`}
+                  className="text-desert-clay hover:text-desert-earth font-medium"
+                >
+                  Learn more →
+                </Link>
               </div>
-              <Link 
-                href="/projects/optimization"
-                className="text-desert-clay hover:text-desert-earth font-medium"
-              >
-                Learn more →
-              </Link>
             </div>
-          </div>
+          ))}
         </div>
         <div className="mt-8 text-center">
           <Link 
@@ -103,11 +79,11 @@ export default function Home() {
       </section>
 
       {/* Skills Overview */}
-      <section className="py-12 bg-desert-sky/10 -mx-4 px-4 rounded-lg">
-        <h2 className="text-3xl font-bold mb-8 text-desert-earth">Skills & Expertise</h2>
+      <section className="py-12 bg-texture-concrete -mx-4 px-4 rounded-lg">
+        <h2 className="text-3xl font-bold mb-8 text-gray-800">Skills & Expertise</h2>
         <div className="grid md:grid-cols-3 gap-6">
-          <div className="bg-white p-6 rounded-lg shadow-sm">
-            <h3 className="text-xl font-semibold mb-4 text-desert-clay">Engineering</h3>
+          <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+            <h3 className="text-xl font-semibold mb-4 text-gray-800">Engineering</h3>
             <ul className="space-y-2 text-gray-700">
               <li>Mechanical Design</li>
               <li>Structural Analysis</li>
@@ -116,8 +92,8 @@ export default function Home() {
               <li>Material Selection</li>
             </ul>
           </div>
-          <div className="bg-white p-6 rounded-lg shadow-sm">
-            <h3 className="text-xl font-semibold mb-4 text-desert-clay">Software</h3>
+          <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+            <h3 className="text-xl font-semibold mb-4 text-gray-800">Software</h3>
             <ul className="space-y-2 text-gray-700">
               <li>MATLAB</li>
               <li>Python</li>
@@ -126,8 +102,8 @@ export default function Home() {
               <li>Data Analysis</li>
             </ul>
           </div>
-          <div className="bg-white p-6 rounded-lg shadow-sm">
-            <h3 className="text-xl font-semibold mb-4 text-desert-clay">Soft Skills</h3>
+          <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+            <h3 className="text-xl font-semibold mb-4 text-gray-800">Soft Skills</h3>
             <ul className="space-y-2 text-gray-700">
               <li>Problem Solving</li>
               <li>Technical Communication</li>
